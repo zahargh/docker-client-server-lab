@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+
+  my-server:
+    build:
+      context: ./server
+    ports:
+      - "8000:80"
+
+
+  my-client:
+    build:
+      context: ./client
+    environment:
+      SERVER_HOST: my-server
