@@ -263,3 +263,148 @@ docker-client-server-lab-my-client
 
 ---
 
+
+---
+
+# مرحله سوم: اجرای سرویس‌ها و بررسی ارتباط بین کانتینرها
+
+پس از ایجاد Dockerfile ها و فایل Docker Compose، در این مرحله سرویس‌های سرور و کلاینت اجرا و ارتباط بین آن‌ها بررسی شد.
+
+برای اجرای همزمان سرویس‌ها از دستور زیر استفاده شد:
+
+```bash
+docker compose up
+```
+
+با اجرای این دستور، Docker Compose شبکه داخلی مورد نیاز را ایجاد کرده و کانتینرهای مربوط به سرویس‌های `my-server` و `my-client` را اجرا کرد.
+
+---
+
+## اجرای Docker Compose
+
+پس از اجرای دستور `docker compose up`، سرویس‌های زیر ایجاد شدند:
+
+```
+docker-client-server-lab-my-server-1
+```
+
+و
+
+```
+docker-client-server-lab-my-client-1
+```
+
+همچنین شبکه داخلی Docker Compose با نام:
+
+```
+docker-client-server-lab_default
+```
+
+ایجاد شد.
+
+تصویر اجرای سرویس‌ها:
+
+![Docker Compose Up](Screenshot 2026-09-02 182209.png)
+
+---
+
+# بررسی وضعیت کانتینرها
+
+برای مشاهده کانتینرهای در حال اجرا از دستور زیر استفاده شد:
+
+```bash
+docker ps
+```
+
+این دستور وضعیت کانتینرها، Image مورد استفاده و Port Mapping را نمایش می‌دهد.
+
+تصویر خروجی:
+
+![Docker PS](Screenshot 2026-09-02 182340.png)
+
+---
+
+# بررسی ارتباط Client و Server
+
+برنامه کلاینت آدرس سرور را از طریق متغیر محیطی زیر دریافت می‌کند:
+
+```
+SERVER_HOST=my-server
+```
+
+بنابراین درخواست‌ها به جای localhost به سرویس Docker با نام:
+
+```
+my-server
+```
+
+ارسال شدند.
+
+لاگ کلاینت نشان داد که درخواست‌ها با موفقیت ارسال شده و پاسخ از سرور دریافت شده است.
+
+نمونه خروجی:
+
+```
+[Request 1] Response received from server:
+Hello! The answer was sent from the Docker server container.
+```
+
+تا درخواست پنجم ارتباط بدون مشکل برقرار بود.
+
+تصویر لاگ کلاینت:
+
+![Client Logs](screenshotsclient-logs.png)
+
+---
+
+# بررسی دسترسی به سرور از سیستم میزبان
+
+برای بررسی Port Forwarding، درخواست HTTP از سیستم میزبان به آدرس زیر ارسال شد:
+
+```bash
+curl http://localhost:8000
+```
+
+با توجه به تنظیمات Docker Compose:
+
+```
+localhost:8000  --->  container port 80
+```
+
+درخواست به کانتینر سرور منتقل شد و پاسخ صحیح دریافت شد.
+
+تصویر خروجی:
+
+![Server Response](screenshotsserver-response.png)
+
+---
+
+# بررسی فایل‌های داخل کانتینر سرور
+
+برای ورود به کانتینر سرور از دستور زیر استفاده شد:
+
+```bash
+docker exec -it docker-client-server-lab-my-server-1 sh
+```
+
+سپس با اجرای دستور:
+
+```bash
+ls
+```
+
+فایل‌های موجود در مسیر کاری کانتینر مشاهده شدند.
+
+خروجی:
+
+```
+server.py
+```
+
+این خروجی نشان می‌دهد که فایل برنامه سرور به درستی داخل Image کپی شده و در محیط Container قابل دسترسی است.
+
+تصویر خروجی:
+
+![Server Container Files](screenshotsserver-exec-ls.png)
+
+---
