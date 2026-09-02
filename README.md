@@ -304,7 +304,7 @@ docker-client-server-lab_default
 
 تصویر اجرای سرویس‌ها:
 
-![Docker Compose Up](Screenshot 2026-09-02 182209.png)
+![Docker Compose Up](screenshots/docker-ps.png)
 
 ---
 
@@ -320,7 +320,7 @@ docker ps
 
 تصویر خروجی:
 
-![Docker PS](Screenshot 2026-09-02 182340.png)
+![Docker PS](screenshots/ps.png)
 
 ---
 
@@ -353,7 +353,7 @@ Hello! The answer was sent from the Docker server container.
 
 تصویر لاگ کلاینت:
 
-![Client Logs](screenshotsclient-logs.png)
+![Client Logs](screenshots/screenshotsclient-logs.png)
 
 ---
 
@@ -375,7 +375,7 @@ localhost:8000  --->  container port 80
 
 تصویر خروجی:
 
-![Server Response](screenshotsserver-response.png)
+![Server Response](screenshots/screenshotsserver-response.png)
 
 ---
 
@@ -405,6 +405,6 @@ server.py
 
 تصویر خروجی:
 
-![Server Container Files](screenshotsserver-exec-ls.png)
+![Server Container Files](screenshots/screenshotsserver-exec-ls.png)
 
 ---
