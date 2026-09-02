@@ -1,16 +1,12 @@
-\# Docker Client Server Lab
+# Docker Client Server Lab
 
+A two-container Python application deployed using Docker and Docker Compose.
 
+## Team Members
 
-Two container Python application using Docker and Docker Compose.
+- Zahra
+- Sara
 
+## Project Goal
 
-
-\## Team
-
-
-
-\- Zahra
-
-\- Sara
-
+Deploy a Python client-server application using two independent Docker containers.
